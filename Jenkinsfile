@@ -16,7 +16,7 @@ node {
 	}
 	
 	stage('Push Image') { 
-		docker.withRepository('https://registry.hub.docker.com','docker-hub-credentials') {
+		docker.withRepository('https://hub.docker.com/r/dockerpd/edureka/','docker-hub-credentials') {
 			app.push("${env.BUILD_NUMBER}")
 			app.push("latest")
 		}
