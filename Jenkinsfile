@@ -1,24 +1,21 @@
-node {
-	def app
-	
-	stage('Clone repository') {
-		checkout scm
-	}
-
-	stage('Build Image') {
-		app = docker.build("dockerpd/edureka")
-	}
-
-	stage('Test Image') {
-		app.inside {
-			sh 'echo "Tests passed"'
-		}
-	}
-	
-	stage('Push Image') { 	
-			docker.withRepository('https://hub.docker.com/r/dockerpd/edureka','docker-hub-credentials') {
-			app.push("${env.BUILD_NUMBER}")
-			app.push("latest")
-		}
-	}
+node{
+    stage('SCM checkout'){
+        git credentialsId: 'GitHubCredentials', url: 'https://github.com/prathameshdamji/Git-Tutorial-DevOps'
+    }
+    stage('Build Docker Image'){
+        sh 'docker build -t dockerpd/demo .'
+    }
+    stage('Push Docker Images'){
+        sh "docker login -u dockerpd -p psd9028211296"
+        
+        sh 'docker push dockerpd/demo:latest'
+    }
+    stage('Run Container on Dev Server'){
+        sh 'docker run dockerpd/demo:latest'
+    }
+    stage('Showing Docker Images & Containers'){
+        sh 'docker images'
+        sh 'docker ps'
+        sh 'docker ps -a'
+    }
 }
