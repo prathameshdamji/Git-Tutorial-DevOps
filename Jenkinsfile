@@ -8,7 +8,7 @@ node{
     stage('Push Docker Images'){
         sh "docker login -u dockerpd -p psd9028211296"
         
-        sh 'docker push dockerpd/demo:latest'
+        sh 'docker push dockerpd/demo:latest1000'
     }
     stage('Run Container on Dev Server'){
         sh 'docker run dockerpd/demo:latest'
