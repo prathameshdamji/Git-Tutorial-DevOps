@@ -6,8 +6,9 @@ node{
         sh 'docker build -t dockerpd/demo .'
     }
     stage('Push Docker Images'){
-        sh "docker login -u dockerpd -p psd9028211296"
-        
+        withCredentials([string(credentialsId: 'docker-password', variable: 'dockerHubPassword')]) {
+            sh "docker login -u dockerpd -p ${dockerHubPassword}"
+        }
         sh 'docker push dockerpd/demo:latest'
     }
     stage('Run Container on Dev Server'){
