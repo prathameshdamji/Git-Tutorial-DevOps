@@ -6,8 +6,8 @@ node{
         sh 'docker build -t git-tutorial-devops .'
     }
     stage('Push Docker Images'){
-        withCredentials([string(credentialsId: 'docker-password', variable: 'docker-password')]) {
-            sh "docker login -u dockerpd -p ${docker-password}"
+        withCredentials([string(credentialsId: 'docker-login-password', variable: 'docker-login-password')]) {
+            sh "dpcker login -u dockerpd -p ${docker-login-password}"
         }
         sh 'docker push dockerpd/git-tutorial-devops:latest'
     }
