@@ -3,7 +3,7 @@ node{
         git credentialsId: 'Git-Login', url: 'https://github.com/prathameshdamji/Git-Tutorial-DevOps'
     }
     stage('Build Docker Image'){
-        sh 'docker build -t git-tutorial-devops .'
+        sh 'docker build -t dockerpd/git-tutorial-devops .'
     }
     stage('Push Docker Images'){
         withCredentials([string(credentialsId: 'docker-login-password', variable: 'docker-login-password')]) {
