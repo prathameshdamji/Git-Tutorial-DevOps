@@ -1,13 +1,13 @@
 node{
     stage('SCM checkout'){
-        git credentialsId: 'GitHubCredentials', url: 'https://github.com/prathameshdamji/Git-Tutorial-DevOps'
+        git credentialsId: 'Git-Login', url: 'https://github.com/prathameshdamji/Git-Tutorial-DevOps'
     }
     stage('Build Docker Image'){
         sh 'docker build -t dockerpd/demo .'
     }
     stage('Push Docker Images'){
-        withCredentials([string(credentialsId: 'docker-password', variable: 'dockerHubPassword')]) {
-            sh "docker login -u dockerpd -p ${dockerHubPassword}"
+        withCredentials([string(credentialsId: 'docker-password', variable: 'docker-password')]) {
+            sh "docker login -u dockerpd -p ${docker-password}"
         }
         sh 'docker push dockerpd/demo:latest'
     }
