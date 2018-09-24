@@ -9,6 +9,7 @@ node{
         withCredentials([string(credentialsId: 'docker-login-password', variable: 'docker-login-password')]) {
             sh "dpcker login -u dockerpd -p ${docker-login-password}"
         }
+        sh 'docker pull dockerpd/git-tutorial-devops'
         sh 'docker push dockerpd/git-tutorial-devops:latest'
     }
     stage('Run Container on Dev Server'){
